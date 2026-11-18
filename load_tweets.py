@@ -255,7 +255,8 @@ def insert_tweet(connection,tweet):
                 :withheld_in_countries, :source, :text,
                 :country_code, :state_code, :lang, :place_name,
                 CASE
-                    WHEN :geo_str IS NULL OR :geo_coords IS NULL
+                    WHEN CAST(:geo_str AS TEXT) IS NULL
+                    OR CAST(:geo_coords AS TEXT) IS NULL
                         THEN NULL
                     ELSE ST_GeomFromText(
                         :geo_str || '(' || :geo_coords || ')',
