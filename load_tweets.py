@@ -262,31 +262,31 @@ def insert_tweet(connection,tweet):
                 END
             )
             ON CONFLICT (id_tweets) DO NOTHING
-            ''')
+        ''')
 
-            connection.execute(sql, {
-                'id_tweets': tweet['id'],
-                'id_users': tweet['user']['id'],
-                'created_at': datetime.datetime.strptime(
-                    tweet['created_at'], '%a %b %d %H:%M:%S %z %Y'
-                ),
-                'in_reply_to_status_id': tweet.get('in_reply_to_status_id'),
-                'in_reply_to_user_id': tweet.get('in_reply_to_user_id'),
-                'quoted_status_id': tweet.get('quoted_status_id'),
-                'retweet_count': tweet.get('retweet_count'),
-                'favorite_count': tweet.get('favorite_count'),
-                'quote_count': tweet.get('quote_count'),
-                'withheld_copyright': tweet.get('withheld_copyright'),
-                'withheld_in_countries': tweet.get('withheld_in_countries'),
-                'source': remove_nulls(tweet.get('source')),
-                'text': remove_nulls(text),
-                'country_code': country_code,
-                'state_code': state_code,
-                'lang': tweet.get('lang'),
-                'place_name': remove_nulls(place_name),
-                'geo_str': geo_str,
-                'geo_coords': geo_coords
-            })
+        connection.execute(sql, {
+            'id_tweets': tweet['id'],
+            'id_users': tweet['user']['id'],
+            'created_at': datetime.datetime.strptime(
+                tweet['created_at'], '%a %b %d %H:%M:%S %z %Y'
+            ),
+            'in_reply_to_status_id': tweet.get('in_reply_to_status_id'),
+            'in_reply_to_user_id': tweet.get('in_reply_to_user_id'),
+            'quoted_status_id': tweet.get('quoted_status_id'),
+            'retweet_count': tweet.get('retweet_count'),
+            'favorite_count': tweet.get('favorite_count'),
+            'quote_count': tweet.get('quote_count'),
+            'withheld_copyright': tweet.get('withheld_copyright'),
+            'withheld_in_countries': tweet.get('withheld_in_countries'),
+            'source': remove_nulls(tweet.get('source')),
+            'text': remove_nulls(text),
+            'country_code': country_code,
+            'state_code': state_code,
+            'lang': tweet.get('lang'),
+            'place_name': remove_nulls(place_name),
+            'geo_str': geo_str,
+            'geo_coords': geo_coords
+        })
 
         ########################################
         # insert into the tweet_urls table
