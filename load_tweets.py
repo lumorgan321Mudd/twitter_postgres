@@ -98,9 +98,11 @@ def insert_tweet(connection,tweet):
     res = connection.execute(sql,{
         'id_tweets':tweet['id'],
         })
-    if res.first() is not None:
-        return
+    already_exists = res.first() is not None
+    connection.commit()
 
+    if already_exists:
+        return
     # insert tweet within a transaction;
     # this ensures that a tweet does not get "partially" loaded
     with connection.begin() as trans:
